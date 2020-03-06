@@ -22,10 +22,10 @@ namespace PasswordCrackerServer
             
                
                     t.Start();
-                
-            
-           
 
+
+
+            Console.ReadKey();
 
            
         }
