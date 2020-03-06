@@ -106,6 +106,30 @@ namespace PasswordCrackerServer
                     
                 }
             }
+            
+            Task.Run(() => {
+                while (true)
+                {
+                    try
+                    {
+                        string str = reader.ReadLine();
+                        for (int i = 65; i <= 122;i++)
+                        {
+                            if (str.Contains(Convert.ToChar(i)))
+                            {
+                                Console.WriteLine(str);
+                                Thread.Sleep(1000);
+                            }
+                        }
+                       
+                    }
+                    catch
+                    {
+
+                    }
+                }
+            });
+
                 
 
         }

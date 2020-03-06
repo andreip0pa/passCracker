@@ -13,14 +13,10 @@ namespace PasswordCrackerServer
         {
 
             List<Chunk> chunkList = new List<Chunk>();
-            chunkList = CreateChunks();
-            foreach (var item in chunkList[0].WordList)
-            {
-                Console.WriteLine(item);
-            }
+            chunkList = CreateChunks(Convert.ToInt32(Console.ReadLine()));
             
 
-            TcpWorker t = new TcpWorker(9999, IPAddress.Loopback,chunkList);
+            TcpWorker t = new TcpWorker(9999, IPAddress.Any,chunkList);
             
                
                     t.Start();
@@ -32,11 +28,11 @@ namespace PasswordCrackerServer
            
         }
 
-        static List<Chunk> CreateChunks()
+        static List<Chunk> CreateChunks(int number)
         {
             List<string> fullDicionary = new List<string>();
 
-            string filename = "webster-dictionary-reduced.txt";
+            string filename = "webster-dictionary.txt";
             
             FileStream fs = new FileStream(filename, FileMode.Open, FileAccess.Read);
             using (StreamReader sr = new StreamReader(fs))
@@ -55,14 +51,14 @@ namespace PasswordCrackerServer
 
 
             
-            int maxi = fullDicionary.Count / 4;
+            int maxi = fullDicionary.Count / number;
 
             List<Chunk> chunkList = new List<Chunk>();
 
-            for (int j = 0; j <= 3; j++)
+            for (int j = 0; j <= number-1; j++)
             {
 
-                int initiali = maxi - fullDicionary.Count / 4;
+                int initiali = maxi - fullDicionary.Count / number;
                 List<string> list1 = new List<string>();
                 for (int i = initiali; i < maxi; i++)
                 {
@@ -71,7 +67,7 @@ namespace PasswordCrackerServer
                 }
                 chunkList.Add(new Chunk(list1));
                 
-                maxi += fullDicionary.Count / 4;
+                maxi += fullDicionary.Count / number;
             }
 
             return chunkList;

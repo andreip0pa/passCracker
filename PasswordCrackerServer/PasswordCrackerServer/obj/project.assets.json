@@ -694,11 +694,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\andre\\source\\repos\\PasswordCrackerServer\\PasswordCrackerServer\\PasswordCrackerServer.csproj",
+      "projectUniqueName": "D:\\BAIT\\passCracker\\PasswordCrackerServer\\PasswordCrackerServer\\PasswordCrackerServer.csproj",
       "projectName": "PasswordCrackerServer",
-      "projectPath": "C:\\Users\\andre\\source\\repos\\PasswordCrackerServer\\PasswordCrackerServer\\PasswordCrackerServer.csproj",
+      "projectPath": "D:\\BAIT\\passCracker\\PasswordCrackerServer\\PasswordCrackerServer\\PasswordCrackerServer.csproj",
       "packagesPath": "C:\\Users\\andre\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\andre\\source\\repos\\PasswordCrackerServer\\PasswordCrackerServer\\obj\\",
+      "outputPath": "D:\\BAIT\\passCracker\\PasswordCrackerServer\\PasswordCrackerServer\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
