@@ -13,8 +13,10 @@ namespace PasswordCrackerServer
         {
 
             List<Chunk> chunkList = new List<Chunk>();
+            Console.WriteLine("Welcome to Awesome International's Password Cracker!");
+            Console.WriteLine("Please enter number of chunks to split dictionary into:");
             chunkList = CreateChunks(Convert.ToInt32(Console.ReadLine()));
-            
+            Console.WriteLine("Server strated, ready for client's to connect.");
 
             TcpWorker t = new TcpWorker(9999, IPAddress.Any,chunkList);
             
@@ -62,7 +64,6 @@ namespace PasswordCrackerServer
                 List<string> list1 = new List<string>();
                 for (int i = initiali; i < maxi; i++)
                 {
-
                     list1.Add(fullDicionary[i]);
                 }
                 chunkList.Add(new Chunk(list1));

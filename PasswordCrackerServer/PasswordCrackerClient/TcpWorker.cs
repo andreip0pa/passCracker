@@ -6,6 +6,7 @@ using System.Net;
 using System.Threading.Tasks;
 using System.IO;
 using PasswordCrackerClient.models;
+using Newtonsoft.Json;
 
 namespace PasswordCrackerClient
 {
@@ -54,12 +55,7 @@ namespace PasswordCrackerClient
             Cracker crack = new Cracker(wordList);
             List<UserInfoClearText> result = crack.RunCracker();
 
-            foreach(var pass in result)
-            {
-                writer.WriteLine(string.Join(", ", result));
-            }
-
-            Console.WriteLine(result.Count.ToString());
+            writer.WriteLine(JsonConvert.SerializeObject(result));
             tcpClient.Close();
             Console.ReadKey();
 
