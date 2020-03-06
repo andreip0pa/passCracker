@@ -23,11 +23,9 @@ namespace PasswordCrackerClient
 
         public List<UserInfoClearText> RunCracker()
         {
-            Stopwatch stopwatch = Stopwatch.StartNew();
-
             List<UserInfo> userInfos =
                 PasswordFileHandler.ReadPasswordFile("passwords.txt");
-            Console.WriteLine("passwd opeend");
+            Console.WriteLine("Cracker thread started");
 
             List<UserInfoClearText> result = new List<UserInfoClearText>();
 
@@ -36,11 +34,6 @@ namespace PasswordCrackerClient
                 IEnumerable<UserInfoClearText> partialResult = CheckWordWithVariations(entry, userInfos);
                 result.AddRange(partialResult);
             }
-            stopwatch.Stop();
-            Console.WriteLine(string.Join(", ", result));
-            Console.WriteLine("Out of {0} password {1} was found ", userInfos.Count, result.Count);
-            Console.WriteLine();
-            Console.WriteLine("Time elapsed: {0}", stopwatch.Elapsed);
             return result;
         }
         

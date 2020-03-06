@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 using System.IO;
 using PasswordCrackerClient.models;
 using Newtonsoft.Json;
+using PasswordCrackerServer;
+using System.Diagnostics;
 
 namespace PasswordCrackerClient
 {
@@ -37,6 +39,8 @@ namespace PasswordCrackerClient
 
         public void Start()
         {
+            Stopwatch stopwatch = new Stopwatch();
+            stopwatch.Start();
             List<string> wordList = new List<string>();
             TcpClient tcpClient = new TcpClient();
             tcpClient.Connect(ip, port);
@@ -50,11 +54,22 @@ namespace PasswordCrackerClient
                 str = reader.ReadLine();
                 wordList.Add(str);
             }
-            
 
-            Cracker crack = new Cracker(wordList);
-            List<UserInfoClearText> result = crack.RunCracker();
+            List<UserInfoClearText> result = new List<UserInfoClearText>();
 
+            List<Chunk> chunks = ChunkMaker.CreateChunks(wordList);
+            var tasks = Task.Run(() =>
+            {
+                Parallel.For(0, 4, i =>
+                {
+                    Cracker crack = new Cracker(chunks[i].WordList);
+                    result.AddRange(crack.RunCracker());
+                });
+            });
+            tasks.Wait();
+            stopwatch.Stop();
+            Console.WriteLine(string.Join(", ", result));
+            Console.WriteLine("Time elapsed since start " + stopwatch.Elapsed);
             writer.WriteLine(JsonConvert.SerializeObject(result));
             tcpClient.Close();
             Console.ReadKey();
