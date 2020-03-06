@@ -7,7 +7,7 @@ namespace PasswordCrackerClient
     {
         static void Main(string[] args)
         {
-            TcpWorker tcpWorker = new TcpWorker(9999, IPAddress.Loopback);
+            TcpWorker tcpWorker = new TcpWorker(9999, IPAddress.Parse("192.168.24.166"));
             tcpWorker.Start();
         }
     }

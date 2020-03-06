@@ -5,6 +5,8 @@ using System.Net.Sockets;
 using System.Net;
 using System.Threading.Tasks;
 using System.IO;
+using PasswordCrackerClient.models;
+
 namespace PasswordCrackerClient
 {
     class TcpWorker
@@ -44,20 +46,23 @@ namespace PasswordCrackerClient
             writer.AutoFlush = true;
             while (str!="END")
             {
-                 str = reader.ReadLine();
+                str = reader.ReadLine();
                 wordList.Add(str);
-
-                Console.WriteLine(str);
-               
-                
-
             }
             
-            tcpClient.Close();
 
+            Cracker crack = new Cracker(wordList);
+            List<UserInfoClearText> result = crack.RunCracker();
+
+            foreach(var pass in result)
+            {
+                writer.WriteLine(string.Join(", ", result));
+            }
+
+            Console.WriteLine(result.Count.ToString());
+            tcpClient.Close();
             Console.ReadKey();
 
-           
 
 
 
